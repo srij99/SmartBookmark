@@ -52,10 +52,10 @@ export default function DeleteBookmarkDialog({ open, onClose, bookmark, onOptimi
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel className="cursor-pointer">Cancel</AlertDialogCancel>
           <AlertDialogAction
             onClick={handleDelete}
-            className="bg-destructive text-destructive-foreground hover:opacity-90"
+            className="border-2 border-primary text-primary bg-transparent cursor-pointer hover:bg-transparent"
           >
             Delete
           </AlertDialogAction>

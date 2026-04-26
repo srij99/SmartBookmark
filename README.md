@@ -64,28 +64,6 @@ Each user can only see their own bookmarks.
 
 ---
 
-## ⚡ Challenges Faced & Solutions
-
-### 1️⃣ Configuring Supabase + Google OAuth
-
-**Challenge:**
-Understanding redirect flow between Google → Supabase → Next.js.
-
-**Solution:**
-Implemented a custom `/auth/callback` route using Supabase SSR to exchange OAuth code for session. Ensured correct redirect URIs were configured in both Supabase and Google Console.
-
----
-
-### 2️⃣ Realtime Delete Not Working
-
-**Challenge:**
-INSERT and UPDATE worked in real-time, but DELETE did not trigger UI updates.
-
-**Root Cause:**
-Postgres logical replication does not include full row data on DELETE unless `REPLICA IDENTITY FULL` is set.
-
-**Solution:**
-
 ```sql
 alter table bookmarks replica identity full;
 ```
@@ -94,25 +72,6 @@ After enabling this, DELETE events propagated correctly.
 
 ---
 
-### 3️⃣ Cursor-Based Pagination with Realtime
-
-**Challenge:**
-Using only the bookmark timestamp for pagination caused duplicate or missing items when multiple bookmarks were created at the same time.
-
-**Solution:**
-I adjusted the pagination logic to use a more reliable ordering method, ensuring smooth and consistent infinite scrolling even with real-time updates.
-
----
-
-### 4️⃣ Modal State Issues (Create vs Edit)
-
-**Challenge:**
-Modal retained stale values when switching between add and edit modes.
-
-**Solution:**
-Used dynamic `key` prop to force remounting. This ensured proper state reset.
-
----
 
 ## 🔐 Security Considerations
 
